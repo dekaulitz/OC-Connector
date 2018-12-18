@@ -19,9 +19,11 @@ class OracleConnector
 
     public function __construct()
     {
-        $this->host = $GLOBALS["env"]["oracle"]["host"];
-        $this->username = $GLOBALS["env"]["oracle"]["username"];
-        $this->password = $GLOBALS["env"]["oracle"]["password"];
+        $this->host = $GLOBALS["host"];
+        $this->username = $GLOBALS["username"];
+        $this->password = $GLOBALS["password"] ?: null;
+        if ($this->host == null || $this->password == null || $this->username == null)
+            throw new \Exception("host or username or password is e");
         $this->conn = oci_connect($this->username, $this->password, $this->host);
 
     }
